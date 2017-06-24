@@ -1,0 +1,20 @@
+{
+    "name": "kangourouge/file-bundle",
+    "description": "Kangourouge File Bundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chafiq El Mechrafi",
+            "email": "chafiq.elmechrafi@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.9",
+        "symfony/symfony": "2.8.*|3.*"
+    },
+    "autoload": {
+        "psr-0": { "KRG\\FileBundle": "" }
+    },
+    "target-dir": "KRG/FileBundle"
+}
