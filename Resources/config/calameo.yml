@@ -1,0 +1,28 @@
+services:
+    emc.file.uploadable.listener.calameo:
+        class: KRG\FileBundle\Gedmo\Uploadable\UploadableListener
+        arguments: [@stof_doctrine_extensions.uploadable.mime_type_guesser]
+        calls:
+            - [setAnnotationReader, [@annotation_reader]]
+            - [setDefaultFileInfoClass, [%stof_doctrine_extensions.uploadable.default_file_info.class%]]
+            - [setDriver, [@emc.calameo]]
+        tags:
+            - { name: doctrine.event_subscriber }
+        
+    emc.file.uploadable.manager.calameo:
+        class: %stof_doctrine_extensions.uploadable.manager.class%
+        arguments: [@emc.file.uploadable.listener.calameo, %stof_doctrine_extensions.uploadable.default_file_info.class%]
+        tags:
+            - { name: emc.file.uploadable, alias: calameo }
+
+    emc.calameo:
+        class: KRG\FileBundle\Driver\CalameoDriver
+        arguments:
+            - %krg_file.providers.calameo.api_key%
+            - %krg_file.providers.calameo.api_secret%
+            - %krg_file.providers.calameo.subscription_id%
+            - %krg_file.providers.calameo.settings%
+            - %kernel.root_dir%
+            - '/media/cache/calameo'
+            - '%kernel.cache_dir%/calameo'
+

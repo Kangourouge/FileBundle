@@ -1,0 +1,28 @@
+services:
+    emc.file.uploadable.listener.vimeo:
+        class: KRG\FileBundle\Gedmo\Uploadable\UploadableListener
+        arguments: [@stof_doctrine_extensions.uploadable.mime_type_guesser]
+        calls:
+            - [setAnnotationReader, [@annotation_reader]]
+            - [setDefaultFileInfoClass, [%stof_doctrine_extensions.uploadable.default_file_info.class%]]
+            - [setDriver, [@emc.vimeo]]
+        tags:
+            - { name: doctrine.event_subscriber }
+        
+    emc.file.uploadable.manager.vimeo:
+        class: %stof_doctrine_extensions.uploadable.manager.class%
+        arguments: [@emc.file.uploadable.listener.vimeo, %stof_doctrine_extensions.uploadable.default_file_info.class%]
+        tags:
+            - { name: emc.file.uploadable, alias: vimeo }
+    
+    emc.vimeo:
+        class: KRG\FileBundle\Driver\VimeoDriver
+        arguments:
+            - %krg_file.providers.vimeo.client_id%
+            - %krg_file.providers.vimeo.client_secret%
+            - %krg_file.providers.vimeo.access_token%
+            - %krg_file.providers.vimeo.settings%
+            - %krg_file.providers.vimeo.whitelist%
+            - %kernel.root_dir%
+            - '/media/cache/vimeo'
+            - '%kernel.cache_dir%/vimeo'

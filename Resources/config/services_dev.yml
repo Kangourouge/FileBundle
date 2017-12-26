@@ -1,0 +1,4 @@
+services:
+    KRG\FileBundle\EventListener\ExceptionListener:
+        class: KRG\FileBundle\EventListener\ExceptionListener
+        tags: [event_subscriber]

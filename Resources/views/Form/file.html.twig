@@ -1,0 +1,12 @@
+{% block file_widget %}
+    {% spaceless %}
+        {{ form_widget(form.path, {"attr" : attr|merge({
+            "class" : "file form-control",
+            "data-files" : files|json_encode(),
+            'data-locale':app.request.locale,
+            "_delete" : form._delete.vars.id,
+            "_name" : form.name.vars.full_name|default(null)
+        })} ) }}
+        {{ form_widget(form._delete) }}
+    {% endspaceless %}
+{% endblock %}

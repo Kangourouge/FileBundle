@@ -1,0 +1,3 @@
+krg_file.default.list:
+    path: /file/{adapter}/list
+    defaults: {_controller:KRGFileBundle:Default:list}

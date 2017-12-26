@@ -1,0 +1,43 @@
+{% block multiple_file_upload_widget %}
+    {% spaceless %}
+        {% if prototype is defined %}
+            {%- set attr = attr|merge({'data-prototype': form_row(prototype), class: 'file-upload-multiple' }) -%}
+        {% endif %}
+        <div {{ block('widget_container_attributes') }}>
+            <div>
+                {% for child in form %}
+                    {{ form_widget(child) }}
+                {% endfor %}
+            </div>
+            <footer></footer>
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
+{% block file_upload_widget %}
+    {% spaceless %}
+        <div id="{{ form.vars.id }}" class="file-upload" data-preview-placeholder="{{ preview_placeholder }}">
+            <label for="{{ form.path.vars.id }}" class="file-preview">
+                {{ preview_placeholder|raw }}
+            </label>
+            <footer>
+                <div class="input-group">
+                    {% if form.children.name is defined %}
+                        {{ form_widget(form.name) }}
+                    {% endif %}
+                    <label for="{{ form.path.vars.id }}" class="btn btn-xs btn-edit input-group-addon">
+                        {{ edit_icon|raw }}
+                    </label>
+                    <label class="btn btn-xs btn-remove input-group-addon">
+                        {{ remove_icon|raw }}
+                        <input type="checkbox" class="hidden" name="{{ form.remove.vars.full_name }}"/>
+                    </label>
+                </div>
+            </footer>
+            <label class="btn btn-primary btn-file">
+                {{ upload_icon|raw }}
+                {{ form_widget(form.path, {data:null, attr:{'class': 'btn-file', 'data-file': data.metaData|default(null)|json_encode()|raw}}) }}
+            </label>
+        </div>
+    {% endspaceless %}
+{% endblock %}
