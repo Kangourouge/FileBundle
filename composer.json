@@ -16,5 +16,6 @@
     "autoload": {
         "psr-0": { "KRG\\FileBundle": "" }
     },
-    "target-dir": "KRG/FileBundle"
+    "target-dir": "KRG/FileBundle",
+    "abandoned": "knplabs/knp-gaufrette-bundle"
 }
